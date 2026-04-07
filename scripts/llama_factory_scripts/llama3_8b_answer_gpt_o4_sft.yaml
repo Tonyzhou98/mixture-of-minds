@@ -1,0 +1,45 @@
+### model
+model_name_or_path: /fsx/zyhang/Llama/Llama-3.1-8B-Instruct/
+trust_remote_code: true
+
+### method
+stage: sft
+do_train: true
+finetuning_type: full
+deepspeed: /fsx/zyhang/LLaMA-Factory/examples/deepspeed/ds_z3_offload_config.json  # choices: [ds_z0_config.json, ds_z2_config.json, ds_z3_config.json]
+
+### dataset
+dataset: answer_gpt_o4_mini_rollout_train
+template: llama3
+cutoff_len: 8192
+max_samples: 2000
+overwrite_cache: true
+preprocessing_num_workers: 16
+dataloader_num_workers: 4
+
+### output
+output_dir: /fsx/zyhang/checkpoints/rankmind/llama3_8b_answer_gpt_o4_sft
+logging_steps: 10
+save_steps: 20
+plot_loss: true
+overwrite_output_dir: true
+save_only_model: false
+report_to: wandb  # choices: [none, wandb, tensorboard, swanlab, mlflow]
+run_name: llama3_8b_answer_gpt_o4_sft
+
+### train
+per_device_train_batch_size: 4
+gradient_accumulation_steps: 1
+learning_rate: 1.0e-5
+num_train_epochs: 10
+lr_scheduler_type: cosine
+warmup_ratio: 0.1
+bf16: true
+ddp_timeout: 180000000
+resume_from_checkpoint: null
+
+## eval
+eval_dataset: answer_gpt_o4_mini_rollout_test
+per_device_eval_batch_size: 4
+eval_strategy: steps
+eval_steps: 20
