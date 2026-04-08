@@ -17,7 +17,7 @@ The framework is built around three distinct training phases. Each phase relies 
 **A. Generate Rollout Data**
 Use the base models to explore multiple possible plans via MCTS branching (`--num_plans 8`).
 ```bash
-python scripts/generate_rl_data.py \
+srun --gres=gpu:8 --mem 128G -c 64 python scripts/generate_rl_data.py \
   --batch_size 256 \
   --num_plans 8 \
   --num_codes_per_plan 4 \
@@ -50,7 +50,7 @@ sbatch scripts/verl_scripts/rankmind_grpo_fsdp_plan_agent_gemma3_12b.sh
 **A. Generate Rollout Data**
 Rely on the Planner for 1 robust plan (`--num_plans 1`), then fan out the Coder model generation (`--num_codes_per_plan 8`).
 ```bash
-python scripts/generate_rl_data.py \
+srun --gres=gpu:8 --mem 128G -c 64 python scripts/generate_rl_data.py \
   --batch_size 128 \
   --num_plans 1 \
   --num_codes_per_plan 8 \
@@ -83,7 +83,7 @@ sbatch scripts/verl_scripts/rankmind_grpo_fsdp_code_agent_gemma3_12b.sh
 **A. Generate Rollout Data**
 With Planner and Coder acting optimally, fan out Answer generation (`--num_answers_per_code 8`).
 ```bash
-python scripts/generate_rl_data.py \
+srun --gres=gpu:8 --mem 128G -c 64 python scripts/generate_rl_data.py \
   --batch_size 128 \
   --num_plans 1 \
   --num_codes_per_plan 4 \
