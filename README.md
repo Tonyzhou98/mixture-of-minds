@@ -25,7 +25,8 @@ python scripts/generate_rl_data.py \
   --plan_model_path /your/path/to/models/gemma3_12b_textonly \
   --code_model_path /your/path/to/models/gemma3_12b_textonly \
   --answer_model_path /your/path/to/models/gemma3_12b_textonly \
-  --output_fname_prefix ./datasets/rl_datasets/gemma3_12b_mcts_rollout
+  --output_fname_prefix ./datasets/rl_datasets/gemma3_12b_mcts_rollout \
+  --input_fname ./datasets/train_data/TableInstruct.jsonl
 ```
 
 **B. Filter High-Quality Plans**
@@ -57,7 +58,8 @@ python scripts/generate_rl_data.py \
   --plan_model_path /your/path/to/checkpoints/rankmind_gemma3_12b_grpo_plan_agent/actor/huggingface \
   --code_model_path /your/path/to/models/gemma3_12b_textonly \
   --answer_model_path /your/path/to/models/gemma3_12b_textonly \
-  --output_fname_prefix ./datasets/rl_datasets/gemma3_12b_plan_update
+  --output_fname_prefix ./datasets/rl_datasets/gemma3_12b_plan_update \
+  --input_fname ./datasets/train_data/TableInstruct.jsonl
 ```
 
 **B. Filter Bug-Free Code**
@@ -89,7 +91,8 @@ python scripts/generate_rl_data.py \
   --plan_model_path /your/path/to/checkpoints/rankmind_gemma3_12b_grpo_plan_agent/actor/huggingface \
   --code_model_path /your/path/to/checkpoints/rankmind_gemma3_12b_grpo_code_agent/actor/huggingface \
   --answer_model_path /your/path/to/models/gemma3_12b_textonly \
-  --output_fname_prefix ./datasets/rl_datasets/gemma3_12b_plan_coder_update
+  --output_fname_prefix ./datasets/rl_datasets/gemma3_12b_plan_coder_update \
+  --input_fname ./datasets/train_data/TableInstruct.jsonl
 ```
 
 **B. Filter Verifiable Extractions**
@@ -144,6 +147,16 @@ mixture-of-minds/
 ├── scripts/             # Inference frameworks, eval scripts (e.g., run_tablebench_verl_ckpt.py, generate_rl_data.py)
 └── scripts/verl_scripts # Scalable SLURM templates for FSDP2 / Megatron distributed RL PPO runs
 ```
+
+## Datasets
+
+The following datasets are included in the `datasets/` folder of this repository:
+
+- **TableInstruct** — training data for rollout generation: `datasets/train_data/TableInstruct.jsonl`
+- **TableBench** — evaluation benchmark: `datasets/tablebench/` (multiple splits: `TableBench_DP.jsonl`, `TableBench_PoT.jsonl`, `TableBench_TCoT.jsonl`, `TableBench_SCoT.jsonl`)
+- **FinQA** — financial QA evaluation benchmark: `datasets/finqa/finqa_test.jsonl`
+
+---
 
 ## Getting Started
 
