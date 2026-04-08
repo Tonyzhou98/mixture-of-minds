@@ -75,7 +75,7 @@ if __name__ == '__main__':
     parser.add_argument(
         "--input_fname",
         type=str,
-        default="/your/path/to/your_fs/code/RankMind/datasets/train_data/TableInstruct_qwen3_failed.jsonl",
+        default="/your/path/to/your_fs/code/RankMind/datasets/train_data/TableInstruct.jsonl",
         help="Path to the input file"
     )
     args = parser.parse_args()
